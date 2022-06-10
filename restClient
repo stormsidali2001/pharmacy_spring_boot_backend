@@ -1,11 +1,13 @@
-POST  http://localhost:8080/auth/signup
+POST http://localhost:8080/auth/signup
 content-type: application/json
 
 {
     "firstName":"sidali",
     "lastName":"assoul",
     "email":"assoul@gmail.com",
-    "password":"123456sept"
+    "password":"123456sept",
+    "address":"ait sidali targa n bouqwi",
+    "phoneNumber":"0663737507"
 }
 ###
 POST  http://localhost:8080/auth/signin
