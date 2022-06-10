@@ -1,5 +1,7 @@
 package com.signinsignup.basic_signin_signup.auth;
 
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.transaction.Transactional;
@@ -8,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.signinsignup.basic_signin_signup.PasswordEncoder;
+import com.signinsignup.basic_signin_signup.auth.models.ClientDto;
+import com.signinsignup.basic_signin_signup.models.Role;
 import com.signinsignup.basic_signin_signup.models.User;
 import com.signinsignup.basic_signin_signup.models.UserRepository;
+import com.signinsignup.basic_signin_signup.models.Client;
+import com.signinsignup.basic_signin_signup.models.ClientRepository;
 
 @Component
 public class AuthService {
@@ -17,21 +23,36 @@ public class AuthService {
     private  UserRepository userRepository;
     @Autowired
     private  PasswordEncoder passwordEncoder;
+    @Autowired
+    private ClientRepository clientRepository;
    
   
     
     @Transactional
-    public String register (User user){
-        boolean exists =  this.userRepository.findUserByEmail(user.getEmail()).isPresent();
-        if(exists){
+    public String signUpClient (ClientDto client){
+        Optional<User> userOptional =  this.userRepository.findUserByEmail(client.getEmail());
+
+        if(userOptional.isPresent()){
             throw new IllegalStateException("email already taken");
         }
-        boolean isValidEmail = Pattern.compile("^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$").matcher(user.getEmail()).matches();
+        boolean isValidEmail = Pattern.compile("^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$").matcher(client.getEmail()).matches();
         if(!isValidEmail){
             throw new IllegalStateException("email not valid");
         }
-        String encryptedPassword = this.passwordEncoder.bCryptPasswordEncoder().encode(user.getPassword());
+        String encryptedPassword = this.passwordEncoder.bCryptPasswordEncoder().encode(client.getPassword());
+        User user = new User();
+        user.setEmail(client.getEmail());
         user.setPassword(encryptedPassword);
+        Client clientDb = new Client();
+        clientDb.setFirstName(client.getFirstName());
+        clientDb.setLastName(client.getLastName());
+        clientDb.setPhoneNumber(client.getPhoneNumber());
+        clientDb.setUser(user);
+        clientRepository.save(clientDb);
+
+        
+        
+
         userRepository.save(user);
         return "registered";
     }

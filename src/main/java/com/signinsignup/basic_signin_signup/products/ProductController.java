@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "products")
+@RequestMapping(path = "/products")
 public class ProductController {
     
 
-    @GetMapping("secured/5")
+   
+    @GetMapping("/secured/alternate")
     public String getProducts(){
         return "working";
     }

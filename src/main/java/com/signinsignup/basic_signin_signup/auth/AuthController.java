@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.signinsignup.basic_signin_signup.auth.models.ClientDto;
 import com.signinsignup.basic_signin_signup.auth.models.LoginRequest;
 import com.signinsignup.basic_signin_signup.models.User;
 
@@ -22,8 +23,8 @@ public class AuthController {
     }
 
     @PostMapping("signup")
-    public String register(@RequestBody User user){
-        return auth.register(user);
+    public String register(@RequestBody ClientDto client){
+        return auth.signUpClient(client);
     }
     
 }

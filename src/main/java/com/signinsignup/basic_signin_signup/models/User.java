@@ -20,8 +20,7 @@ public class User {
     @Column(name = "user_id")
     
     private Long id;
-    private String firstName;
-    private String lastName;
+  
     private String email;
     private String password;
 
@@ -57,40 +56,21 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public User(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-    }
+   
     public User(){
         
     }
 
     public User(User user) {
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
+     
         this.id = user.getId();
         this.password = user.getPassword();
         this.active = user.getActive();
         this.email = user.getEmail();
         this.roles = user.getRoles();
     }
-    public String getFirstName() {
-        return this.firstName;
-    }
+  
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getEmail() {
         return this.email;
@@ -112,8 +92,7 @@ public class User {
     @Override
     public String toString() {
         return "{" +
-            " firstName='" + getFirstName() + "'" +
-            ", lastName='" + getLastName() + "'" +
+        
             ", email='" + getEmail() + "'" +
             ", password='" + getPassword() + "'" +
             "}";
