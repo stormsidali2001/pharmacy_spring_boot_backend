@@ -49,9 +49,6 @@ public class AuthService {
         clientDb.setPhoneNumber(client.getPhoneNumber());
         clientDb.setAddress(client.getAddress());
         clientDb.setUser(user);
-        
-        
-        
         userRepository.save(user);
         clientRepository.save(clientDb);
         return "registered";

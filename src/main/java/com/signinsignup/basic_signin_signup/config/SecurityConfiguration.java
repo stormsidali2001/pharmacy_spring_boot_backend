@@ -1,8 +1,10 @@
 package com.signinsignup.basic_signin_signup.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,9 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     PasswordEncoder passwordEncoder;
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(customUserDetailsService)
-        .passwordEncoder(passwordEncoder)
-        ;
+        auth.authenticationProvider(daoAuthenticationProvider());
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,6 +40,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .and()
                 .formLogin().permitAll();
                 
+    }
+
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider(){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+       
+        provider.setUserDetailsService(customUserDetailsService);
+        provider.setPasswordEncoder(passwordEncoder);
+
+        return provider;
     }
 
 }
