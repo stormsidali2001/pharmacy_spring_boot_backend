@@ -1,0 +1,17 @@
+POST  http://localhost:8080/auth/signup
+content-type: application/json
+
+{
+    "firstName":"sidali",
+    "lastName":"assoul",
+    "email":"assoul@gmail.com",
+    "password":"123456sept"
+}
+###
+POST  http://localhost:8080/auth/signin
+content-type: application/json
+
+{
+    "email":"assoul@gmail.com",
+    "password":"123456sept"
+}
