@@ -47,13 +47,13 @@ public class AuthService {
         clientDb.setFirstName(client.getFirstName());
         clientDb.setLastName(client.getLastName());
         clientDb.setPhoneNumber(client.getPhoneNumber());
+        clientDb.setAddress(client.getAddress());
         clientDb.setUser(user);
-        clientRepository.save(clientDb);
-
         
         
-
+        
         userRepository.save(user);
+        clientRepository.save(clientDb);
         return "registered";
     }
 

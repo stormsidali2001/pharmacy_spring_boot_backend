@@ -16,9 +16,7 @@ public class User {
     @GeneratedValue(
         strategy = GenerationType.SEQUENCE,
         generator = "user_generator"
-    )
-    @Column(name = "user_id")
-    
+    )  
     private Long id;
   
     private String email;
@@ -52,8 +50,7 @@ public class User {
     }
 
     //relations
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ManyToMany
     private Set<Role> roles;
 
    
