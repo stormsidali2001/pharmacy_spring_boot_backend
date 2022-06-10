@@ -17,3 +17,16 @@ content-type: application/json
     "email":"assoul@gmail.com",
     "password":"123456sept"
 }
+
+###
+POST  http://localhost:8080/products/secured/new
+content-type: application/json
+
+{
+   "name":"doliprane",
+   "description":"mhnat rass bye bye ya mowatin",
+   "price":"50",
+   "quantity":"25",
+   "imageUrl":"/someUrl/img.png"
+
+}

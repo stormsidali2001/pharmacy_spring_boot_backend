@@ -4,15 +4,6 @@ public class LoginRequest {
     private  String email;
     private  String password; 
 
-    public LoginRequest(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-    public LoginRequest() {
-        
-    }
-
-
     public String getEmail() {
         return this.email;
     }
@@ -29,12 +20,6 @@ public class LoginRequest {
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-            " email='" + getEmail() + "'" +
-            ", password='" + getPassword() + "'" +
-            "}";
-    }
+   
     
 }

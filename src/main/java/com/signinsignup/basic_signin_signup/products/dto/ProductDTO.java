@@ -1,45 +1,13 @@
-package com.signinsignup.basic_signin_signup.models;
+package com.signinsignup.basic_signin_signup.products.dto;
 
-import java.sql.Date;
+public class ProductDTO {
 
-import javax.persistence.*;
-
-import org.springframework.data.annotation.CreatedDate;
-
-
-@Entity(name="product")
-@Table
-public class Product {
-    @Id
-    @SequenceGenerator(
-        name ="product_generator",
-        sequenceName = "product_generator",
-        allocationSize = 1
-    )
-    @GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "product_generator"
-    )
-    private Long id;
-    
     private String name;
     private String description;
     private Long price;
     private String imageUrl;
     private Long quantity;
-    @CreatedDate
-    private Date createdAt;
 
-
-
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return this.name;
@@ -81,14 +49,4 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Date getCreatedAt() {
-        return this.createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-
-    
 }

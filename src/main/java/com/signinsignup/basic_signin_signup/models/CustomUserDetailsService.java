@@ -17,7 +17,6 @@ public class CustomUserDetailsService implements UserDetailsService{
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findUserByEmail(email);
         user.orElseThrow(()->new IllegalStateException("user not found"));
-
         return user.map(CustomUserDetails::new).get();
     }
     

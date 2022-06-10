@@ -11,12 +11,13 @@ import org.springframework.stereotype.Component;
 
 import com.signinsignup.basic_signin_signup.PasswordEncoder;
 import com.signinsignup.basic_signin_signup.auth.models.ClientDto;
-import com.signinsignup.basic_signin_signup.models.Role;
 import com.signinsignup.basic_signin_signup.models.User;
 import com.signinsignup.basic_signin_signup.models.UserRepository;
 import com.signinsignup.basic_signin_signup.models.Client;
 import com.signinsignup.basic_signin_signup.models.ClientRepository;
-
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 @Component
 public class AuthService {
     @Autowired
@@ -25,6 +26,9 @@ public class AuthService {
     private  PasswordEncoder passwordEncoder;
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
    
   
     
@@ -56,24 +60,24 @@ public class AuthService {
 
     
     public String login(String email,String password){
-        try{
-            System.out.println("login/LoginService");
-            User user = userRepository.findUserByEmail(email).orElseThrow(
-                ()->new IllegalStateException("Email not found")
-            );
-            String encodedPassword = user.getPassword();
-            boolean maches = passwordEncoder.bCryptPasswordEncoder().matches(password,encodedPassword);
-            if(!maches){
-                throw new IllegalStateException("wrong password!!");
-            }
-    
-            return "login success";
+      
 
-        }catch(Exception err){
-            
-           throw new IllegalStateException("some error occured");
-           
-        }
+            System.out.println("login/LoginService");
+            Authentication authentication =   authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+            User userDb = (User) authentication.getPrincipal();
+            return userDb.getEmail();
+            // User user = userRepository.findUserByEmail(email).orElseThrow(
+            //     ()->new IllegalStateException("Email not found")
+            // );
+            // String encodedPassword = user.getPassword();
+            // boolean maches = passwordEncoder.bCryptPasswordEncoder().matches(password,encodedPassword);
+            // if(!maches){
+            //     throw new IllegalStateException("wrong password!!");
+            // }
+    
+            // return "login success";
+
+    
       
        
     }
