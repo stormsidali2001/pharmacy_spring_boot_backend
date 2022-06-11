@@ -10,16 +10,18 @@ content-type: application/json
     "phoneNumber":"0663737507"
 }
 ###
-POST  http://localhost:8080/auth/signin
-content-type: application/json
+POST  http://localhost:8080/signin
+content-type: application/x-www-form-urlencoded
 
-{
-    "email":"assoul@gmail.com",
-    "password":"123456sept"
-}
+username=assoul@gmail.com&password=123456sept
+
+###
+GET  http://localhost:8080/products
+Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc3NvdWxAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3NpZ25pbiIsImV4cCI6MTY1NDkwMTkwMH0.b3QWBCAV1BnA8AAb6WWidDy_I8rJvvEhIkzvniF4MnE
 
 ###
 POST  http://localhost:8080/products/secured/new
+Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc3NvdWxAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3NpZ25pbiIsImV4cCI6MTY1NDkwMjU0Mn0.deJE1tQcQcBtQYRfxaSxc5c9Fc0Y5OGFbcifUfsAuLw
 content-type: application/json
 
 {

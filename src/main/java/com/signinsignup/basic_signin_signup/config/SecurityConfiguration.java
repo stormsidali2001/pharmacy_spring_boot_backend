@@ -14,9 +14,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.signinsignup.basic_signin_signup.models.CustomUserDetailsService;
 import com.signinsignup.basic_signin_signup.models.UserRepository;
+import com.signinsignup.basic_signin_signup.shared.CustomAuthenticationFilter;
+import com.signinsignup.basic_signin_signup.shared.CustomAuthorizationFilter;
 import com.signinsignup.basic_signin_signup.shared.RestAuthEntryPoint;
 
 
@@ -39,13 +42,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        customAuthenticationFilter.setFilterProcessesUrl("/signin");
         http.csrf().disable();
 
         http.sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+       
         http.authorizeRequests()
             .anyRequest().permitAll();
-        http.addFilter(null);
+        
+        http.addFilter(customAuthenticationFilter);
+
+        http.addFilterBefore(new CustomAuthorizationFilter(customUserDetailsService), UsernamePasswordAuthenticationFilter.class);
                 
                 
                 
@@ -61,7 +70,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         return provider;
     }
 
-    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
       return super.authenticationManagerBean();

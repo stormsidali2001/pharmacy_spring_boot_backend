@@ -50,7 +50,7 @@ public class User {
     }
 
     //relations
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles;
 
    
