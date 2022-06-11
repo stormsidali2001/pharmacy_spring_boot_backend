@@ -2,6 +2,8 @@ package com.signinsignup.basic_signin_signup.models;
 
 import javax.persistence.*;
 
+import com.signinsignup.basic_signin_signup.auth.models.ClientDto;
+
 @Table
 @Entity(name = "client")
 public class Client {
@@ -22,6 +24,12 @@ public class Client {
     private String phoneNumber;
     private String address;
 
+    public Client(ClientDto client){
+        this.firstName = client.getFirstName();
+        this.lastName = client.getLastName();
+        this.phoneNumber = client.getPhoneNumber();
+        this.address = client.getAddress();
+    }
     public Long getId() {
         return this.id;
     }

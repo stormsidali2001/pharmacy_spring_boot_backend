@@ -8,6 +8,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.signinsignup.basic_signin_signup.auth.models.AdminDTO;
+
 @Entity
 @Table(name = "admin")
 public class Admin {
@@ -26,10 +28,50 @@ public class Admin {
     private String firstName;
     private String lastName;
    
+
+    public Admin(AdminDTO admin) {
+        
+        this.firstName = admin.getFirstName();
+        this.lastName = admin.getLastName();
+    }
+
     @OneToOne()
     private User user;
 
     //relations
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 
 
     

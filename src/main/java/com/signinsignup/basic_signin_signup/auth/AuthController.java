@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.signinsignup.basic_signin_signup.auth.models.AdminDTO;
 import com.signinsignup.basic_signin_signup.auth.models.ClientDto;
-import com.signinsignup.basic_signin_signup.auth.models.LoginRequest;
-import com.signinsignup.basic_signin_signup.models.User;
+
 
 
 
@@ -17,14 +17,15 @@ public class AuthController {
     @Autowired
     private AuthService auth;
 
-    @PostMapping("signin")
-    public String signIn(@RequestBody LoginRequest request){
-        return auth.login(request.getEmail(), request.getPassword());
-    }
 
-    @PostMapping("signup")
+
+    @PostMapping("signup/client")
     public String register(@RequestBody ClientDto client){
         return auth.signUpClient(client);
+    }
+    @PostMapping("signup/admin")
+    public String singnUpAdmin(AdminDTO admin){
+        return auth.singnUpAdmin(admin);
     }
     
 }
