@@ -50,12 +50,12 @@ public class Order {
     public Order() {
     }
 
-    public Order(OrderId id, Client client, Product product, Long quantity, LocalDateTime createdAt, OrderStatus status) {
-        this.id = id;
+    public Order( Client client, Product product, Long quantity, OrderStatus status) {
+        
         this.client = client;
         this.product = product;
         this.quantity = quantity;
-        this.createdAt = createdAt;
+        this.createdAt = LocalDateTime.now();
         this.status = status;
     }
 

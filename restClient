@@ -42,3 +42,18 @@ content-type: application/json
    "imageUrl":"/someUrl/img.png"
 
 }
+
+
+###
+POST  http://localhost:8080/orders/new
+Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkLmFkbWluQGdtYWlsLmNvbSIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9zaWduaW4iLCJleHAiOjE2NTQ5NjUwMjJ9.3CSmk6t3lvsaPw2eagbIAvBuyWhPXD_e257Ln7z3uYU
+content-type: application/json
+
+{
+  "products":[
+    "productId":"1564654545",
+    "quantity":"50"
+  ]
+
+}
+
