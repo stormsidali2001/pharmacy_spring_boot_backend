@@ -14,12 +14,7 @@ public class ProductsService {
 
     public String addProduct(ProductDTO product){
         try{
-            Product p = new Product();
-            p.setName(product.getName());
-            p.setDescription(product.getDescription());
-            p.setPrice(product.getPrice());
-            p.setQuantity(product.getQuantity());
-            p.setImageUrl(p.getImageUrl());
+            Product p = new Product(product);
             productRepository.save(p);
         }catch(Exception err){
             System.err.println("ProductService/AddProduct Exception"+err.toString());

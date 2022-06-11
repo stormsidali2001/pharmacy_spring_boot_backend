@@ -8,6 +8,7 @@ public class ProductDTO {
     private String imageUrl;
     private Long quantity;
 
+    
 
     public String getName() {
         return this.name;

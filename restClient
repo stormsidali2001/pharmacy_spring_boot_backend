@@ -23,7 +23,7 @@ content-type: application/json
 POST  http://localhost:8080/signin
 content-type: application/x-www-form-urlencoded
 
-username=assoul@gmail.com&password=123456sept
+username=d.admin@gmail.com&password=123456sept
 
 ###
 GET  http://localhost:8080/products
@@ -31,11 +31,11 @@ Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc3NvdWxAZ2
 
 ###
 POST  http://localhost:8080/products/secured/new
-Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc3NvdWxAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3NpZ25pbiIsImV4cCI6MTY1NDkwMjU0Mn0.deJE1tQcQcBtQYRfxaSxc5c9Fc0Y5OGFbcifUfsAuLw
+Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkLmFkbWluQGdtYWlsLmNvbSIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9zaWduaW4iLCJleHAiOjE2NTQ5NjUwMjJ9.3CSmk6t3lvsaPw2eagbIAvBuyWhPXD_e257Ln7z3uYU
 content-type: application/json
 
 {
-   "name":"doliprane",
+   "name":"doliprane1",
    "description":"mhnat rass bye bye ya mowatin",
    "price":"50",
    "quantity":"25",

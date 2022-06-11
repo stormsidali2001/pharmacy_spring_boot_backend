@@ -1,12 +1,18 @@
 package com.signinsignup.basic_signin_signup.models;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 import javax.persistence.*;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.signinsignup.basic_signin_signup.products.dto.ProductDTO;
 
 
+@EntityListeners(AuditingEntityListener.class)
 @Entity(name="product")
 @Table
 public class Product {
@@ -22,17 +28,32 @@ public class Product {
     )
     private Long id;
     
+    @Column(unique = true)
     private String name;
     private String description;
     private Long price;
     private String imageUrl;
     private Long quantity;
-    @CreatedDate
-    private Date createdAt;
+
+    //relations
+    @OneToMany()
+    private Set<Client> clients;
+  
+   
+    private LocalDateTime createdAt;
 
 
 
-
+    public Product(ProductDTO product){
+        this.name = product.getName();
+        this.price = product.getPrice();
+        this.quantity = product.getQuantity();
+        this.imageUrl = product.getImageUrl();
+        this.description = product.getDescription();
+        this.createdAt = LocalDateTime.now();
+        
+        
+    }
     public Long getId() {
         return this.id;
     }
@@ -81,11 +102,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

@@ -12,6 +12,7 @@ public class AdminDTO extends UserDto{
         this.firstName = firstName;
     }
 
+    
     public String getLastName() {
         return this.lastName;
     }
@@ -19,6 +20,6 @@ public class AdminDTO extends UserDto{
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
+    
 
 }

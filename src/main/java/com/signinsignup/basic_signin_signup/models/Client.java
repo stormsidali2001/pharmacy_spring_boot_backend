@@ -1,5 +1,7 @@
 package com.signinsignup.basic_signin_signup.models;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 import com.signinsignup.basic_signin_signup.auth.models.ClientDto;
@@ -78,8 +80,12 @@ public class Client {
         this.user = user;
     }
 
-   
+    //relations
     @OneToOne()
     private User user;
+
+    @OneToMany()
+    private Set<Product> products;
+
     
 }

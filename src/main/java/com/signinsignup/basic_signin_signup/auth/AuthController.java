@@ -24,7 +24,7 @@ public class AuthController {
         return auth.signUpClient(client);
     }
     @PostMapping("signup/admin")
-    public String singnUpAdmin(AdminDTO admin){
+    public String singnUpAdmin(@RequestBody AdminDTO admin){
         return auth.singnUpAdmin(admin);
     }
     
