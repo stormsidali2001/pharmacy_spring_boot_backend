@@ -1,5 +1,7 @@
 package com.signinsignup.basic_signin_signup.models;
 
+import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -10,21 +12,27 @@ import com.signinsignup.basic_signin_signup.auth.models.ClientDto;
 @Entity(name = "client")
 public class Client {
     @Id
-    @SequenceGenerator(
-        name ="client_generator",
-        sequenceName = "client_generator",
-        allocationSize = 1
-    )
-    @GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "client_generator"
-    )
+    @GeneratedValue
     private Long id;
     
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String address;
+
+   
+
+    //relations
+    @OneToOne()
+    private User user;
+
+    @OneToMany(
+        mappedBy = "client",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private Set<Order> orders;
+
 
     public Client(ClientDto client){
         this.firstName = client.getFirstName();
@@ -80,12 +88,25 @@ public class Client {
         this.user = user;
     }
 
-    //relations
-    @OneToOne()
-    private User user;
 
-    @OneToMany()
-    private Set<Product> products;
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Client)) {
+            return false;
+        }
+        Client client = (Client) o;
+        return Objects.equals(id, client.id) && Objects.equals(firstName, client.firstName) && Objects.equals(lastName, client.lastName) && Objects.equals(phoneNumber, client.phoneNumber) && Objects.equals(address, client.address) && Objects.equals(user, client.user) && Objects.equals(orders, client.orders);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, phoneNumber, address, user, orders);
+    }
+
 
     
 }
+
+

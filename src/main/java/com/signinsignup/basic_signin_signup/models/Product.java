@@ -2,6 +2,7 @@ package com.signinsignup.basic_signin_signup.models;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -17,15 +18,7 @@ import com.signinsignup.basic_signin_signup.products.dto.ProductDTO;
 @Table
 public class Product {
     @Id
-    @SequenceGenerator(
-        name ="product_generator",
-        sequenceName = "product_generator",
-        allocationSize = 1
-    )
-    @GeneratedValue(
-        strategy = GenerationType.SEQUENCE,
-        generator = "product_generator"
-    )
+    @GeneratedValue
     private Long id;
     
     @Column(unique = true)
@@ -36,8 +29,12 @@ public class Product {
     private Long quantity;
 
     //relations
-    @OneToMany()
-    private Set<Client> clients;
+    @OneToMany(
+        mappedBy = "product",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private Set<Order> orders;
   
    
     private LocalDateTime createdAt;
@@ -110,6 +107,22 @@ public class Product {
         this.createdAt = createdAt;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Product)) {
+            return false;
+        }
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(price, product.price) && Objects.equals(imageUrl, product.imageUrl) && Objects.equals(quantity, product.quantity) && Objects.equals(orders, product.orders) && Objects.equals(createdAt, product.createdAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, description, price, imageUrl, quantity, orders, createdAt);
+    }
 
     
 }
