@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,12 +18,15 @@ import com.signinsignup.basic_signin_signup.models.Client;
 import com.signinsignup.basic_signin_signup.models.ClientRepository;
 import com.signinsignup.basic_signin_signup.models.CustomUserDetails;
 import com.signinsignup.basic_signin_signup.models.Order;
+import com.signinsignup.basic_signin_signup.models.OrderId;
 import com.signinsignup.basic_signin_signup.models.OrderRepository;
 import com.signinsignup.basic_signin_signup.models.Product;
 import com.signinsignup.basic_signin_signup.models.ProductRepository;
 import com.signinsignup.basic_signin_signup.models.User;
 import com.signinsignup.basic_signin_signup.models.enums.OrderStatus;
 import com.signinsignup.basic_signin_signup.orders.dto.OrderProductDTO;
+
+import antlr.collections.List;
 
 import org.slf4j.Logger;
 
@@ -69,18 +73,24 @@ public class OrdersService {
         return "success";
     }
 
-    public void getClientOrders(){
+    public   ArrayList<Order> getClientOrders(){
         User user = getUser();
         Long userId = user.getId();
         Client client = this.getClientByUserId(userId);    
+        ArrayList<Order> orders =   orderRepository.findAllByClientId(client.getId());
+        return orders;
+    }
 
-        
+    public      ArrayList<Client> getAllOrders(){
        
-
+       
+        ArrayList<Client> clients =   clientRepository.findAll();
+        return clients;
     }
 
 
-    //utils
+    
+    //utils--------------------------------------------------
     private User getUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user  =(User)auth.getPrincipal();
