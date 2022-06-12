@@ -32,6 +32,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Autowired
     CustomUserDetailsService customUserDetailsService;
 
+    @Autowired
+    UserRepository userRepository;
+
     RestAuthEntryPoint restAuthEntryPoint;
 
     @Autowired
@@ -42,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(),userRepository);
         customAuthenticationFilter.setFilterProcessesUrl("/signin");
         http.csrf().disable();
 

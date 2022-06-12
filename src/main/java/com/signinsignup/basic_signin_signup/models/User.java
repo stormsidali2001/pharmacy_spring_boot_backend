@@ -19,8 +19,12 @@ public class User {
     )  
     private Long id;
   
+    @Column(unique = true)
     private String email;
     private String password;
+
+    @Column
+    private String refreshToken = null;
 
     @Column(name = "active")
     private int active;
@@ -84,6 +88,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getRefreshToken() {
+        return this.refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
 
 
     @Override

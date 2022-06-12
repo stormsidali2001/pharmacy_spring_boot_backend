@@ -32,12 +32,12 @@ public class Order implements Serializable {
     @EmbeddedId
     private OrderId orderId;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("clientId")
     Client client;
 
      
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("productId")
     Product product;
 

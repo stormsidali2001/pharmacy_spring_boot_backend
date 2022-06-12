@@ -1,11 +1,15 @@
 package com.signinsignup.basic_signin_signup.auth;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 import javax.transaction.Transactional;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -113,4 +117,22 @@ public class AuthService {
         return user;
 
     }
+
+    public String logout(){
+       User user = getUser();
+       user.setRefreshToken(null);
+       userRepository.save(user);
+       return "logged out";
+    }
+
+    public User getUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user  =(User)auth.getPrincipal();
+        if(user == null){
+            throw new IllegalStateException("user not found");      
+        }
+
+        return user;
+    }
+
 }

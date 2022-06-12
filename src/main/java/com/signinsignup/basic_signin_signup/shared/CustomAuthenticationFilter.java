@@ -21,14 +21,18 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.signinsignup.basic_signin_signup.models.User;
+import com.signinsignup.basic_signin_signup.models.UserRepository;
 
 
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     AuthenticationManager authenticationManager;
+    UserRepository userRepository;
   
-    public CustomAuthenticationFilter(AuthenticationManager authenticationManager){
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager,UserRepository userRepository){
         this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+
     }
 
     @Override
@@ -67,6 +71,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         tokens.put("refresh_token", refresh_token);
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+        user.setRefreshToken(refresh_token);
+        userRepository.save(user);
        
 
         

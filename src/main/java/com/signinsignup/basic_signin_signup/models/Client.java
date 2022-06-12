@@ -51,7 +51,7 @@ public class Client {
         this.orders = orders;
     }
     public Client(){
-        
+
     }
 
     public Long getId() {

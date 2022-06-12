@@ -2,7 +2,6 @@ package com.signinsignup.basic_signin_signup.orders.dto;
 
 import java.util.Objects;
 
-import antlr.collections.List;
 
 public class OrderProductDTO {
     private Long productId;
