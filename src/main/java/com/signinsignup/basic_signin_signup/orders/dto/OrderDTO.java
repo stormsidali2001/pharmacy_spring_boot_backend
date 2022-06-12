@@ -1,28 +1,28 @@
 package com.signinsignup.basic_signin_signup.orders.dto;
 
 import java.util.Objects;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class OrderDTO {
-    private Set<OrderProductDTO> products;
+    private ArrayList<OrderProductDTO> products;
 
 
     public OrderDTO() {
     }
 
-    public OrderDTO(Set<OrderProductDTO> products) {
+    public OrderDTO(ArrayList<OrderProductDTO> products) {
         this.products = products;
     }
 
-    public Set<OrderProductDTO> getProducts() {
+    public ArrayList<OrderProductDTO> getProducts() {
         return this.products;
     }
 
-    public void setProducts(Set<OrderProductDTO> products) {
+    public void setProducts(ArrayList<OrderProductDTO> products) {
         this.products = products;
     }
 
-    public OrderDTO products(Set<OrderProductDTO> products) {
+    public OrderDTO products(ArrayList<OrderProductDTO> products) {
         setProducts(products);
         return this;
     }
@@ -42,6 +42,8 @@ public class OrderDTO {
     public int hashCode() {
         return Objects.hashCode(products);
     }
+
+
 
     @Override
     public String toString() {

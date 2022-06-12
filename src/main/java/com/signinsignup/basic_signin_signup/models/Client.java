@@ -40,6 +40,20 @@ public class Client {
         this.phoneNumber = client.getPhoneNumber();
         this.address = client.getAddress();
     }
+
+    public Client(Long id, String firstName, String lastName, String phoneNumber, String address, User user, Set<Order> orders) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.user = user;
+        this.orders = orders;
+    }
+    public Client(){
+        
+    }
+
     public Long getId() {
         return this.id;
     }

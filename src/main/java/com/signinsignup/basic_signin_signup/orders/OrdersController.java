@@ -1,8 +1,11 @@
 package com.signinsignup.basic_signin_signup.orders;
 
+import java.util.ArrayList;
 import java.util.Set;
 
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +20,11 @@ public class OrdersController {
     @Autowired
     private OrdersService ordersService;
 
+
+    @PreAuthorize("hasAnyRole('CLIENT')")
     @PostMapping("new")
     public String createOrder(@RequestBody OrderDTO data){
-        Set<OrderProductDTO> products =   data.getProducts();
+        ArrayList<OrderProductDTO> products =   data.getProducts();
         return ordersService.createOrder(products);
     }
 }

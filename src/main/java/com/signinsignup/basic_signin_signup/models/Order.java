@@ -1,5 +1,6 @@
 package com.signinsignup.basic_signin_signup.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -24,12 +25,12 @@ import com.signinsignup.basic_signin_signup.models.enums.OrderStatus;
 
 @Entity(name = "Order")
 @Table(name =  "client_order_product")
-public class Order {
+public class Order implements Serializable {
    
   
     //relations
     @EmbeddedId
-    private OrderId id;
+    private OrderId orderId;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("clientId")
@@ -47,24 +48,37 @@ public class Order {
     private OrderStatus status;
 
 
+   
+
+
     public Order() {
     }
 
+    public Order(OrderId orderId, Client client, Product product, Long quantity, LocalDateTime createdAt, OrderStatus status) {
+        this.orderId = orderId;
+        this.client = client;
+        this.product = product;
+        this.quantity = quantity;
+        this.createdAt = createdAt;
+        this.status = status;
+    }
     public Order( Client client, Product product, Long quantity, OrderStatus status) {
-        
         this.client = client;
         this.product = product;
         this.quantity = quantity;
         this.createdAt = LocalDateTime.now();
         this.status = status;
+        this.orderId = new OrderId();
+        this.orderId.setClient(client.getId());
+        this.orderId.setProduct(product.getId());
     }
 
-    public OrderId getId() {
-        return this.id;
+    public OrderId getOrderId() {
+        return this.orderId;
     }
 
-    public void setId(OrderId id) {
-        this.id = id;
+    public void setOrderId(OrderId orderId) {
+        this.orderId = orderId;
     }
 
     public Client getClient() {
@@ -107,8 +121,8 @@ public class Order {
         this.status = status;
     }
 
-    public Order id(OrderId id) {
-        setId(id);
+    public Order orderId(OrderId orderId) {
+        setOrderId(orderId);
         return this;
     }
 
@@ -144,19 +158,19 @@ public class Order {
         if (!(o instanceof Order)) {
             return false;
         }
-        Order command = (Order) o;
-        return Objects.equals(id, command.id) && Objects.equals(client, command.client) && Objects.equals(product, command.product) && Objects.equals(quantity, command.quantity) && Objects.equals(createdAt, command.createdAt) && Objects.equals(status, command.status);
+        Order order = (Order) o;
+        return Objects.equals(orderId, order.orderId) && Objects.equals(client, order.client) && Objects.equals(product, order.product) && Objects.equals(quantity, order.quantity) && Objects.equals(createdAt, order.createdAt) && Objects.equals(status, order.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, client, product, quantity, createdAt, status);
+        return Objects.hash(orderId, client, product, quantity, createdAt, status);
     }
 
     @Override
     public String toString() {
         return "{" +
-            " id='" + getId() + "'" +
+            " orderId='" + getOrderId() + "'" +
             ", client='" + getClient() + "'" +
             ", product='" + getProduct() + "'" +
             ", quantity='" + getQuantity() + "'" +
@@ -164,7 +178,6 @@ public class Order {
             ", status='" + getStatus() + "'" +
             "}";
     }
-
 
     
 }

@@ -64,7 +64,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter{
                 UserDetails user =   userDetailsService.loadUserByUsername(username);
                 
                 ArrayList<SimpleGrantedAuthority> s = (ArrayList<SimpleGrantedAuthority>) user.getAuthorities();
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, null,s);
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,s);
             
              
                 SecurityContext  context =  SecurityContextHolder.getContext();

@@ -43,6 +43,22 @@ public class AuthService {
     public String signUpClient (ClientDto client){
         User user = getUser(client.getEmail(), client.getPassword());
         Client clientDb = new Client(client);
+
+        Optional<Role> roleOptional =  roleRepository.findRoleByRole("CLIENT");
+        Role role = null;
+        if(!roleOptional.isPresent()){
+            Role r = new Role();
+            r.setRole("CLIENT");
+               
+            role =  roleRepository.save(r);
+        }else{
+            role = roleOptional.get();
+
+        }
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        user.setRoles(roles);
+        
         clientDb.setUser(user);
         userRepository.save(user);
         clientRepository.save(clientDb);
@@ -53,13 +69,17 @@ public class AuthService {
     public String singnUpAdmin(AdminDTO admin){
         User user = getUser(admin.getEmail(), admin.getPassword());
         Optional<Role> roleOptional =  roleRepository.findRoleByRole("ADMIN");
-        Role role = roleOptional.get();
+        Role role = null;
         if(!roleOptional.isPresent()){
             Role r = new Role();
             r.setRole("ADMIN");
                
             role =  roleRepository.save(r);
+        }else{
+            role = roleOptional.get();
+
         }
+        
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);

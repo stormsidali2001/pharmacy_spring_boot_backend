@@ -10,43 +10,45 @@ import javax.persistence.Embeddable;
 public class OrderId implements Serializable {
 
     @Column(name = "client_id")
-    private int client;
+    private Long client;
 
     @Column(name = "product_id")
-    private int product;
+    private Long product;
 
     // getters/setters and most importantly equals() and hashCode()
+
+   
 
     public OrderId() {
     }
 
-    public OrderId(int client, int product) {
+    public OrderId(Long client, Long product) {
         this.client = client;
         this.product = product;
     }
 
-    public int getClient() {
+    public Long getClient() {
         return this.client;
     }
 
-    public void setClient(int client) {
+    public void setClient(Long client) {
         this.client = client;
     }
 
-    public int getProduct() {
+    public Long getProduct() {
         return this.product;
     }
 
-    public void setProduct(int product) {
+    public void setProduct(Long product) {
         this.product = product;
     }
 
-    public OrderId client(int client) {
+    public OrderId client(Long client) {
         setClient(client);
         return this;
     }
 
-    public OrderId product(int product) {
+    public OrderId product(Long product) {
         setProduct(product);
         return this;
     }
@@ -58,8 +60,8 @@ public class OrderId implements Serializable {
         if (!(o instanceof OrderId)) {
             return false;
         }
-        OrderId commandId = (OrderId) o;
-        return client == commandId.client && product == commandId.product;
+        OrderId orderId = (OrderId) o;
+        return Objects.equals(client, orderId.client) && Objects.equals(product, orderId.product);
     }
 
     @Override
