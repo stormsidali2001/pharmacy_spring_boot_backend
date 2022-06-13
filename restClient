@@ -21,7 +21,7 @@ content-type: application/json
    
 }
 ###
-POST  http://localhost:8080/signin
+POST  http://localhost:8080/public/signin
 content-type: application/x-www-form-urlencoded
 
 username=assoul@gmail.com&password=123456sept
@@ -62,7 +62,15 @@ content-type: application/json
 }
 ###
 GET http://localhost:8080/orders/client
-Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc3NvdWxAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3NpZ25pbiIsImV4cCI6MTY1NTA5OTc2MH0.YA5oxPVL3x44WQlpAlhAjYlxpQWx9rp18_-gjJX7qcg
+Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc3NvdWxAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3B1YmxpYy9zaWduaW4iLCJleHAiOjE2NTUxNzIwNDF9.WMnocYL2A9mbez8_EisybUWWSOoWiggjFJNoQbKNN9Q
 ###
 GET http://localhost:8080/orders/admin
 Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc3NvdWxAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3NpZ25pbiIsImV4cCI6MTY1NTA5OTc2MH0.YA5oxPVL3x44WQlpAlhAjYlxpQWx9rp18_-gjJX7qcg
+
+
+### 
+GET http://localhost:8080/auth/userInfos
+Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc3NvdWxAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3B1YmxpYy9zaWduaW4iLCJleHAiOjE2NTUxNzIwNDF9.WMnocYL2A9mbez8_EisybUWWSOoWiggjFJNoQbKNN9Q
+
+GET http://localhost:8080/auth/refresh
+Authorization:Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc3NvdWxAZ21haWwuY29tIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3B1YmxpYy9zaWduaW4iLCJleHAiOjE2NTUxNzIwNDF9.WMnocYL2A9mbez8_EisybUWWSOoWiggjFJNoQbKNN9Q

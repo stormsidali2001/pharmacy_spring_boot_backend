@@ -134,5 +134,25 @@ public class AuthService {
 
         return user;
     }
+    public Client getClientByUserId(Long userId){
+        Optional <Client> clientOptional = clientRepository.findByUserId(userId);
+        if(!clientOptional.isPresent()){
+            throw new IllegalStateException("client not found");
+        }
+        Client client = clientOptional.get();
+
+        return client;
+        
+    }
+    public Admin getAdminByUserId(Long userId){
+        Optional <Admin> adminOptional = adminRepository.findByUserId(userId);
+        if(!adminOptional.isPresent()){
+            throw new IllegalStateException("client not found");
+        }
+        Admin admin = adminOptional.get();
+
+        return admin;
+        
+    }
 
 }

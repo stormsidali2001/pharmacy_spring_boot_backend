@@ -1,5 +1,7 @@
 package com.signinsignup.basic_signin_signup.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.signinsignup.basic_signin_signup.models.CustomUserDetailsService;
 import com.signinsignup.basic_signin_signup.models.UserRepository;
@@ -46,14 +51,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(),userRepository);
-        customAuthenticationFilter.setFilterProcessesUrl("/signin");
+        customAuthenticationFilter.setFilterProcessesUrl("/public/signin");
         http.csrf().disable();
-
+      
         http.sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
        
-        http.authorizeRequests()
+        http.cors().and().formLogin().disable().authorizeRequests()
             .anyRequest().permitAll();
+
         
         http.addFilter(customAuthenticationFilter);
 
@@ -61,6 +67,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 
                 
                 
+    }
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-Headers","Access-Control-Allow-Origin","Access-Control-Request-Method", "Access-Control-Request-Headers","Origin","Cache-Control", "Content-Type", "Authorization"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean
@@ -78,5 +94,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     public AuthenticationManager authenticationManagerBean() throws Exception {
       return super.authenticationManagerBean();
     }
+
+  
 
 }

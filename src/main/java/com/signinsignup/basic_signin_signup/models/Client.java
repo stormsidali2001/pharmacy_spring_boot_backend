@@ -39,6 +39,7 @@ public class Client {
         this.lastName = client.getLastName();
         this.phoneNumber = client.getPhoneNumber();
         this.address = client.getAddress();
+        
     }
 
     public Client(Long id, String firstName, String lastName, String phoneNumber, String address, User user, Set<Order> orders) {

@@ -1,5 +1,7 @@
 package com.signinsignup.basic_signin_signup.models;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,6 +38,23 @@ public class Role {
     public void setRole(String role) {
         this.role = role;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Role)) {
+            return false;
+        }
+        Role role = (Role) o;
+        return Objects.equals(role, role.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(role);
+    }
+
     
 
 }
